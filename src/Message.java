@@ -11,6 +11,7 @@ public class Message {
     public static class MessageFlag {
         public static final int TYPE_ABSENT = 0;
         public static final int TYPE_PRESENT = 1;
+        public static final int END = 2;
     }
 
     private String mMessage;

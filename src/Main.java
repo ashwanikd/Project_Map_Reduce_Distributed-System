@@ -9,6 +9,6 @@ public class Main {
     public static int mNoOfReducers;
 
     public static void main(String[] args) {
-
+        MainServer mainServer = new MainServer(mMainPort);
     }
 }

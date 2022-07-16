@@ -1,7 +1,3 @@
-import org.w3c.dom.Text;
-
-import java.net.*;
-import java.io.*;
 public class Reducer {
     public static final int mMapperStartingPort = 2001;
 
@@ -11,5 +7,6 @@ public class Reducer {
 
     public static void main(String args[]) {
         DistributedReducer reducer = new DistributedReducer(Integer.parseInt(args[0]));
+        reducer.startServer();
     }
 }

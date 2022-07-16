@@ -7,7 +7,7 @@ public class Mapper {
     public static final int mMainPort = 4001;
 
     public static void main(String args[]) {
-        DistributedMapper mapper = new DistributedMapper(args[0],Integer.parseInt(args[1]));
+        DistributedMapper mapper = new DistributedMapper(args[0], Integer.parseInt(args[1]));
         mapper.runServer();
     }
 }

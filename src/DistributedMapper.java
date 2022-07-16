@@ -177,6 +177,19 @@ public class DistributedMapper {
                     }
                 }
             }
+
+            for (int i = 0; i < mNoOfMappers; i++) {
+                try {
+                    outputStreams[i].writeUTF("END$" +
+                            Message.MessageFlag.END +
+                            "$" +
+                            Message.MessageType.TYPE_SYSTEM +
+                            "$" +
+                            "end");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             messageMainServer("c");
         }
     }
