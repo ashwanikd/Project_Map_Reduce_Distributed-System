@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/src/MapperImplInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MapperImplementation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ReducerImplInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ReducerImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Reducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reducer.java" afterDir="false" />
+    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="files integration">
+      <change afterPath="$PROJECT_DIR$/src/MessageList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MapperImplInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapperImplInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MapperImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapperImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ReducerImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplementation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +98,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657949088311</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="files integration">
+      <created>1657957619475</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1657957619475</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,6 +121,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="files integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="files integration" />
   </component>
 </project>

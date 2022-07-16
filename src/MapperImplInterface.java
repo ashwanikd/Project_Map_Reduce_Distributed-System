@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+
 public interface MapperImplInterface {
-    public Message map(Message message);
+    public ArrayList<Message> map(Message message);
+
+    public Message f(String arg);
 }

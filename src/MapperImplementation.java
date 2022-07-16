@@ -1,6 +1,13 @@
-public class MapperImplementation implements MapperImplInterface{
+import java.util.ArrayList;
+
+public class MapperImplementation implements MapperImplInterface {
     @Override
-    public Message map(Message message) {
+    public ArrayList<Message> map(Message message) {
+        return null;
+    }
+
+    @Override
+    public Message f(String arg) {
         return null;
     }
 }
