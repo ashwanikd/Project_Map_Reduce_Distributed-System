@@ -1,10 +1,12 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 public class DistributedReducer {
 
@@ -22,6 +24,10 @@ public class DistributedReducer {
 
     private int mNoOfThreads = 0;
 
+    private ReducerImplementation mReducerImpl;
+
+    private String mResult;
+
     public DistributedReducer(int port) {
         mPort = port;
         init();
@@ -32,6 +38,7 @@ public class DistributedReducer {
             mServer = new ServerSocket(mPort);
             mMap = new HashMap<>();
             mSocketThreads = new ArrayList<>();
+            mResult = "";
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -134,6 +141,34 @@ public class DistributedReducer {
     }
 
     private void postCollection() {
+        try {
+            DataOutputStream out = new DataOutputStream(new Socket(InetAddress.getLocalHost(),
+                    Mapper.mMainPort,
+                    InetAddress.getLocalHost(),
+                    mPort)
+                    .getOutputStream());
 
+            mReducerImpl = new ReducerImplementation();
+            Set<String> keys = mMap.keySet();
+            Iterator it = keys.iterator();
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                ArrayList<String> list = mMap.get(key);
+                mReducerImpl.reduce(key,list);
+            }
+            convertOutputTabularFormat();
+            out.writeUTF(mResult);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void convertOutputTabularFormat() {
+        mResult = "";
+        Iterator it = mReducerImpl.result.iterator();
+        while (it.hasNext()) {
+            Message m = (Message) it.next();
+            mResult = mResult + m.getKey() + m.getMessage() + "\n";
+        }
     }
 }
