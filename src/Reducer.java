@@ -1,6 +1,8 @@
+import org.w3c.dom.Text;
+
 import java.net.*;
 import java.io.*;
-public class Reducer {
+public class Reducer implements  ReducerImplementation<Text,IntWritable,NullWrittable,Text>{
     private Socket socket            = null;
     private DataInputStream  input   = null;
     private DataOutputStream out     = null;
@@ -10,13 +12,14 @@ public class Reducer {
 
     private static final int mMainPort = 4001;
 
+
     public Reducer(String address, int port)
      {
          try
         {
         socket = new Socket (address, port);
         System.out.println("Connected");
-        input = new DataInputStream(System.in);
+        input = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
         }
         catch(UnknownHostException u)
@@ -28,12 +31,13 @@ public class Reducer {
             System.out.println(i);
         }
          String line = "";
-         while(!line.equals("Over"))
+         while(true)
          {
          try
          {
              line = input .readline();
              out.writeUTF(line);
+
          }
          catch(IOException i)
          {
