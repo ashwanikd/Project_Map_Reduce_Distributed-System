@@ -47,6 +47,20 @@ public class DistributedReducer {
 
     public void startServer() {
         new ServerProcess().start();
+        messageMainServer("s");
+    }
+
+    private void messageMainServer(String message) {
+        try {
+            DataOutputStream out = new DataOutputStream(new Socket(InetAddress.getLocalHost(),
+                    Mapper.mMainPort,
+                    InetAddress.getLocalHost(),
+                    mPort)
+                    .getOutputStream());
+            out.writeUTF(message + " reduce " + mPort);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private class ServerProcess implements Runnable {
@@ -158,6 +172,7 @@ public class DistributedReducer {
             }
             convertOutputTabularFormat();
             out.writeUTF(mResult);
+            messageMainServer("c");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -168,7 +183,7 @@ public class DistributedReducer {
         Iterator it = mReducerImpl.result.iterator();
         while (it.hasNext()) {
             Message m = (Message) it.next();
-            mResult = mResult + m.getKey() + m.getMessage() + "\n";
+            mResult = mResult + m.getKey() + " " + m.getMessage() + "\n";
         }
     }
 }

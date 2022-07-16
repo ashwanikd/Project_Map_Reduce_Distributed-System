@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="Reducer Logic">
+    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="complete logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DistributedReducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DistributedReducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReducerImplInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReducerImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657981795895</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="complete logic">
+      <created>1657983750474</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1657983750474</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,6 +185,7 @@
     <MESSAGE value="Mapper logic completed" />
     <MESSAGE value="Reducer Logic update" />
     <MESSAGE value="Reducer Logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reducer Logic" />
+    <MESSAGE value="complete logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete logic" />
   </component>
 </project>
