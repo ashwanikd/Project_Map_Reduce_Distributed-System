@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="functionality integration">
+    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="modifying functionality">
+      <change afterPath="$PROJECT_DIR$/src/DistributedMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MapperImplInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapperImplInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MapperImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapperImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReducerImplInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Message.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ReducerImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/script.bat" beforeDir="false" afterPath="$PROJECT_DIR$/src/script.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657958166651</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="modifying functionality">
+      <created>1657959039496</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1657959039496</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,6 +141,7 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="files integration" />
     <MESSAGE value="functionality integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="functionality integration" />
+    <MESSAGE value="modifying functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="modifying functionality" />
   </component>
 </project>

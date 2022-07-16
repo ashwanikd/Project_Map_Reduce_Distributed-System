@@ -5,6 +5,9 @@ import java.util.List;
  * implement your Reducer code inside the class
  */
 public class ReducerImplementation implements ReducerImplInterface{
+
+    MessageList mMessageList = new MessageList();
+
     @Override
     public void reduce(String key, List<String> values) {
 
