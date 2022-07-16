@@ -1,13 +1,17 @@
 import java.util.ArrayList;
 
+/**
+ * @version 1.0
+ * implement your Mapper code inside the class
+ */
 public class MapperImplementation implements MapperImplInterface {
     @Override
-    public ArrayList<Message> map(Message message) {
-        return null;
+    public void map(Message message) {
+
     }
 
     @Override
-    public Message f(String arg) {
+    public MessageList f(String arg) {
         return null;
     }
 }

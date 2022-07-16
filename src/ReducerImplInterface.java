@@ -1,7 +1,7 @@
 import java.util.List;
 
 public interface ReducerImplInterface {
-    public Message reduce(String key, List<String> values);
+    public void reduce(String key, List<String> values);
 
-    public Message f(String arg1, String arg2);
+    public Message f(String key, List<String> values);
 }
