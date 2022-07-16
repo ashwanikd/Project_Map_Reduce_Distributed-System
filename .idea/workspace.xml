@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="functionality integration">
+    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="Mapper function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MapperImplInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapperImplInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MapperImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapperImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReducerImplInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReducerImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DistributedMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DistributedMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +110,28 @@
       <option name="project" value="LOCAL" />
       <updated>1657958166651</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="modifying functionality">
+      <created>1657959039496</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1657959039496</updated>
+    </task>
+    <task id="LOCAL-00005" summary="modifying functionality of messages&#10;message format KEY$FLAG$TYPE$MESSAGE">
+      <created>1657966398889</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1657966398889</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Mapper function">
+      <created>1657966561847</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1657966561848</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,6 +149,9 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="files integration" />
     <MESSAGE value="functionality integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="functionality integration" />
+    <MESSAGE value="modifying functionality" />
+    <MESSAGE value="modifying functionality of messages&#10;message format KEY$FLAG$TYPE$MESSAGE" />
+    <MESSAGE value="Mapper function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mapper function" />
   </component>
 </project>
