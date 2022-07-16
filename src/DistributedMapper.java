@@ -1,5 +1,5 @@
-import com.sun.jmx.remote.internal.ArrayQueue;
-
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class DistributedMapper {
 
     private static final String DELIMITER = "$";
+
     private String mFileName;
 
     private int mPort;
@@ -25,8 +26,10 @@ public class DistributedMapper {
     Socket[] mReducerSocket;
 
     ArrayList<String> mCommands;
-
     ArrayList<String> mReceivedCommands;
+
+    DataInputStream[] inputStreams;
+    DataOutputStream[] outputStreams;
 
     public DistributedMapper(String fileName, int noOfMappers) {
         mFileName = fileName;
@@ -45,6 +48,8 @@ public class DistributedMapper {
         try {
             Thread.sleep(500);
             mReducerSocket = new Socket[mNoOfMappers];
+            inputStreams = new DataInputStream[mNoOfMappers];
+            outputStreams = new DataOutputStream[mNoOfMappers];
             mPort = Mapper.mMapperStartingPort;
             while (!isPortAvailable(mPort)) {
                 mPort++;
@@ -72,10 +77,20 @@ public class DistributedMapper {
                                 mPort);
                         check = true;
                     }
+                    messageMainServer("s");
                 } catch (Exception e) {
                     check = false;
                     e.printStackTrace();
                 }
+            }
+        }
+        for (int i = 0; i < mNoOfMappers; i++) {
+            try {
+                inputStreams[i] = new DataInputStream(mReducerSocket[i].getInputStream());
+                outputStreams[i] = new DataOutputStream(mReducerSocket[i].getOutputStream());
+            } catch (Exception e) {
+                check = false;
+                e.printStackTrace();
             }
         }
     }
@@ -135,13 +150,85 @@ public class DistributedMapper {
         @Override
         public void run() {
             String command;
-            int confirm = 0;
+            int confirmIndex = 0;
             synchronized (mCommands) {
                 while (mCommands.size() > 0) {
-                    command = mCommands.get(0);
-                    confirm = 0;
+                    try {
+                        command = mCommands.remove(0);
+                        confirmIndex = -1;
+                        for (int i = 0; i < mNoOfMappers; i++) {
+                            CheckKeyPresentTask task = new CheckKeyPresentTask(i, command);
+                            Thread t = new Thread(task,"new task");
+                            t.start();
+                            t.join();
+                            if (task.isPresent()) {
+                                confirmIndex = i;
+                                break;
+                            }
+                        }
+                        if (confirmIndex != -1) {
+                            outputStreams[confirmIndex].writeUTF(command);
+                        } else {
+                            int random = (int)(Math.random() * mNoOfMappers);
+                            outputStreams[random].writeUTF(command);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            messageMainServer("c");
+        }
+    }
+
+    private void messageMainServer(String message) {
+        try {
+            DataOutputStream out = new DataOutputStream(new Socket(InetAddress.getLocalHost(),
+                    Mapper.mMainPort,
+                    InetAddress.getLocalHost(),
+                    mPort)
+                    .getOutputStream());
+            out.writeUTF(message + " map " + mPort);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class CheckKeyPresentTask implements Runnable {
+        private int reducerIndex;
+        String command;
+
+        private boolean present;
+
+        CheckKeyPresentTask(int reducerIndex, String command) {
+            this.reducerIndex = reducerIndex;
+            this.command = command;
+            present = false;
+        }
+        @Override
+        public void run() {
+            String values[] = command.split(DELIMITER);
+            String x = values[0] + DELIMITER +// key
+                    Message.MessageFlag.TYPE_PRESENT + DELIMITER +// flag
+                    Message.MessageType.TYPE_MAPPER_CHECK + DELIMITER +// type
+                    values[3]; // message
+            try {
+                outputStreams[reducerIndex].writeUTF(x);
+                String result = null;
+                while (result == null) {
+                    result = inputStreams[reducerIndex].readUTF();
+                }
+                values = result.split(DELIMITER);
+                if (Integer.parseInt(values[1]) == Message.MessageFlag.TYPE_PRESENT) {
+                    present = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public boolean isPresent() {
+            return present;
         }
     }
 
@@ -173,8 +260,6 @@ public class DistributedMapper {
                 }
             }
         }
-
         return false;
     }
-
 }
