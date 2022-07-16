@@ -5,6 +5,12 @@ public class Message {
         public static final int TYPE_COMM = 1;
         public static final int TYPE_MAPPER_RESULT = 2;
         public static final int TYPE_REDUCER_RESULT = 3;
+        public static final int TYPE_MAPPER_CHECK = 4;
+    }
+
+    public static class MessageFlag {
+        public static final int TYPE_ABSENT = 0;
+        public static final int TYPE_PRESENT = 1;
     }
 
     private String mMessage;
@@ -12,6 +18,8 @@ public class Message {
     private String mKey;
 
     private int mType;
+
+    private int mFlag;
 
     public String getMessage() {
         return mMessage;
@@ -21,15 +29,31 @@ public class Message {
         return mKey;
     }
 
-    public void setMessage(String message) {
+    public int getType() {
+        return mType;
+    }
+
+    public int getFlag() {
+        return mFlag;
+    }
+
+    public Message setMessage(String message) {
         this.mMessage = message;
+        return this;
     }
 
-    public void setKey(String key) {
+    public Message setKey(String key) {
         this.mKey = key;
+        return this;
     }
 
-    public void setType(int type) {
+    public Message setType(int type) {
         this.mType = type;
+        return this;
+    }
+
+    public Message setFlag(int flag) {
+        this.mFlag = flag;
+        return this;
     }
 }
