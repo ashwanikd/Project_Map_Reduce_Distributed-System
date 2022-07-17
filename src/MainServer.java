@@ -37,7 +37,6 @@ public class MainServer {
         try {
             if (mFile.createNewFile()) {
                 System.out.println("Successfully created file: " + mFile.getName());
-                writer = new FileWriter(mFile,true);
             }
             mappers = new HashMap<>();
             reducers = new HashMap<>();
@@ -133,6 +132,7 @@ public class MainServer {
             try {
                 synchronized (mappers) {
                     synchronized (reducers) {
+                        writer = new FileWriter(mFile,true);
                         synchronized (writer) {
                             if (message != null) {
                                 String[] values = splitThroughSeparator(message, " ");
@@ -165,6 +165,7 @@ public class MainServer {
                             }
                         }
                     }
+                    writer.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
