@@ -6,7 +6,7 @@ public class Reducer {
     public static final int mMainPort = 4001;
 
     public static void main(String args[]) {
-        DistributedReducer reducer = new DistributedReducer(Integer.parseInt(args[0]));
+        DistributedReducer reducer = new DistributedReducer();
         reducer.startServer();
     }
 }

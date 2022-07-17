@@ -13,14 +13,10 @@ public class MainServer {
 
     private File mFile;
 
-    private Scanner scanner;
-
-    private DataInputStream mInputStream;
-
     private FileWriter writer;
 
-    private HashMap<Integer,Boolean> mappers;
-    private HashMap<Integer,Boolean> reducers;
+    private HashMap<Integer,Integer> mappers;
+    private HashMap<Integer,Integer> reducers;
 
     private boolean check = false;
 
@@ -39,12 +35,11 @@ public class MainServer {
                 System.out.println("Successfully created file: " + mFile.getName());
                 writer = new FileWriter(mFile,true);
             }
+            mappers = new HashMap<>();
+            reducers = new HashMap<>();
             mServer = new ServerSocket(mPort);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            mappers = new HashMap<>();
-            reducers = new HashMap<>();
         }
     }
 
@@ -103,19 +98,30 @@ public class MainServer {
             while (true) {
                 try {
                     String message = mInputStream.readUTF();
+                    System.out.println("recieved message :" + message);
                     if (message != null) {
-                        String[] values = message.split(" ");
+                        String[] values = splitThroughSeparator(message," ");
                         if (values[0].equals("s")) {
+                            int x = Integer.parseInt(values[2]);
                             if (values[1].equals("map")) {
-                                mappers.put(Integer.parseInt(values[2]),true);
+                                if (mappers.containsKey(x)) {
+                                    mappers.put(x, mappers.get(x) + 1);
+                                } else {
+                                    mappers.put(x, mappers.get(x) + 1);
+                                }
                             } else if (values[1].equals("reduce")) {
-                                reducers.put(Integer.parseInt(values[2]),true);
+                                if (reducers.containsKey(x)) {
+                                    reducers.put(x, reducers.get(x) + 1);
+                                } else {
+                                    reducers.put(x, reducers.get(x) + 1);
+                                }
                             }
                         } else if (values[0].equals("c")) {
+                            int x = Integer.parseInt(values[2]);
                             if (values[1].equals("map")) {
-                                mappers.put(Integer.parseInt(values[2]),true);
+                                mappers.put(x,mappers.get(x) - 1);
                             } else if (values[1].equals("reduce")) {
-                                reducers.put(Integer.parseInt(values[2]),true);
+                                reducers.put(x,reducers.get(x) - 1);
                             }
                         } else {
                             if (!check) {
@@ -127,30 +133,53 @@ public class MainServer {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+
                 }
             }
         }
     }
 
     private boolean allFinished() {
-        Set<Integer> keys = mappers.keySet();
-        Iterator it = keys.iterator();
-        int key;
-        while (it.hasNext()) {
-            key = (Integer) it.next();
-            if (mappers.get(key)) {
-                return false;
+        if (!mappers.isEmpty() && !reducers.isEmpty()) {
+            Set<Integer> keys = mappers.keySet();
+            Iterator it = keys.iterator();
+            int key;
+            while (it.hasNext()) {
+                key = (Integer) it.next();
+                if (mappers.get(key) != 0) {
+                    return false;
+                }
             }
-        }
-        keys = reducers.keySet();
-        it = keys.iterator();
-        while (it.hasNext()) {
-            key = (Integer) it.next();
-            if (mappers.get(key)) {
-                return false;
+            keys = reducers.keySet();
+            it = keys.iterator();
+            while (it.hasNext()) {
+                key = (Integer) it.next();
+                if (mappers.get(key) != 0) {
+                    return false;
+                }
             }
+        } else {
+            return false;
         }
         return true;
+    }
+
+    public static String[] splitThroughSeparator(String key, String separator) {
+        String[] result;
+        ArrayList<String> resultList = new ArrayList<String>();
+        int x = key.indexOf(separator);
+        while (x > 0) {
+            resultList.add(key.subSequence(0,x).toString());
+            key = key.subSequence(x + 1,key.length()).toString();
+            x = key.indexOf(separator);
+        }
+        if (!key.equals("") && key != null) {
+            resultList.add(key);
+        }
+        result = new String[resultList.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = resultList.get(i);
+        }
+        return result;
     }
 }

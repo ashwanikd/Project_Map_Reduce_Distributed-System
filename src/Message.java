@@ -18,7 +18,7 @@ public class Message {
 
     private String mKey;
 
-    private int mType;
+    private int mType = MessageType.TYPE_MAPPER_RESULT;
 
     private int mFlag;
 

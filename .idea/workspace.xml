@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="complete logic">
+    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="Main logic completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DistributedMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DistributedMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DistributedReducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DistributedReducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/script.bat" beforeDir="false" afterPath="$PROJECT_DIR$/src/script.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,14 +42,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hp/IdeaProjects/Distributed-Computing&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/hp/IdeaProjects/Map-Reduce-Hadoop",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hp\IdeaProjects\Project_Map_Reduce_Distributed-System\src" />
@@ -53,6 +57,20 @@
     </key>
   </component>
   <component name="RunManager" selected="Batch.script (1)">
+    <configuration name="Mapper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Mapper" />
+      <module name="Project_Map_Reduce_Distributed-System" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Reducer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Reducer" />
+      <module name="Project_Map_Reduce_Distributed-System" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="script (1)" type="BatchConfigurationType" factoryName="Batch" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="WORKING_DIRECTORY" value="./out/production/Project_Map_Reduce_Distributed-System" />
@@ -78,7 +96,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Batch.script (1)" />
+        <item itemvalue="Application.Mapper" />
         <item itemvalue="Batch.script" />
+        <item itemvalue="Application.Reducer" />
       </list>
     </recent_temporary>
   </component>
@@ -161,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657983750474</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Main logic completed">
+      <created>1657992573578</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1657992573578</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +213,7 @@
     <MESSAGE value="Reducer Logic update" />
     <MESSAGE value="Reducer Logic" />
     <MESSAGE value="complete logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete logic" />
+    <MESSAGE value="Main logic completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Main logic completed" />
   </component>
 </project>

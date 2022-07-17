@@ -17,7 +17,7 @@ public class DistributedMapper {
 
     private int mPort;
 
-    private int mNoOfMappers;
+    private int mNoOfReducers;
 
     private MapperImplementation mMapperImpl;
 
@@ -31,15 +31,15 @@ public class DistributedMapper {
     DataInputStream[] inputStreams;
     DataOutputStream[] outputStreams;
 
-    public DistributedMapper(String fileName, int noOfMappers) {
+    public DistributedMapper(String fileName, int noOfReducers) {
         mFileName = fileName;
-        mNoOfMappers = noOfMappers;
+        mNoOfReducers = noOfReducers;
+        System.out.println("mapper: " + mFileName + " " + mNoOfReducers);
         init();
     }
 
     private void init() {
         mMapperImpl = new MapperImplementation();
-        mMapServer = new MapServer();
         mCommands = new ArrayList<>();
         mReceivedCommands = new ArrayList<>();
     }
@@ -47,15 +47,17 @@ public class DistributedMapper {
     public void runServer() {
         try {
             Thread.sleep(500);
-            mReducerSocket = new Socket[mNoOfMappers];
-            inputStreams = new DataInputStream[mNoOfMappers];
-            outputStreams = new DataOutputStream[mNoOfMappers];
+            mReducerSocket = new Socket[mNoOfReducers];
+            inputStreams = new DataInputStream[mNoOfReducers];
+            outputStreams = new DataOutputStream[mNoOfReducers];
             mPort = Mapper.mMapperStartingPort;
             while (!isPortAvailable(mPort)) {
                 mPort++;
             }
             System.out.println("Starting mapper on port " + mPort);
+            System.out.println("Number of reducers " + mNoOfReducers);
             connectSockets();
+            messageMainServer("s");
             createMapperOutput();
             createMapperCommands();
             startServer();
@@ -67,24 +69,27 @@ public class DistributedMapper {
 
     private void connectSockets() {
         boolean check = false;
+        System.out.println("mapper " + mPort + " connecting to sockets");
         while (!check) {
-            for (int i = 0; i < mNoOfMappers; i++) {
+            for (int i = 0; i < mNoOfReducers; i++) {
                 try {
                     if (mReducerSocket[i] != null) {
-                        mReducerSocket[i] = new Socket(InetAddress.getLocalHost(),
-                                Mapper.mReducerStartingPort + i,
-                                InetAddress.getLocalHost(),
-                                mPort);
-                        check = true;
+                        continue;
                     }
-                    messageMainServer("s");
+                    System.out.println("mapper " + mPort + " connecting to socket: " + (Mapper.mReducerStartingPort + i));
+                    mReducerSocket[i] = new Socket(InetAddress.getLocalHost(),
+                            Mapper.mReducerStartingPort + i);
+                    System.out.println("mapper " + mPort + " connected to socket: " + (Mapper.mReducerStartingPort + i));
+                    check = true;
                 } catch (Exception e) {
+                    if (check) {
+                        e.printStackTrace();
+                    }
                     check = false;
-                    e.printStackTrace();
                 }
             }
         }
-        for (int i = 0; i < mNoOfMappers; i++) {
+        for (int i = 0; i < mNoOfReducers; i++) {
             try {
                 inputStreams[i] = new DataInputStream(mReducerSocket[i].getInputStream());
                 outputStreams[i] = new DataOutputStream(mReducerSocket[i].getOutputStream());
@@ -111,7 +116,6 @@ public class DistributedMapper {
             } else {
                 System.out.println("File not exists" +
                         "exiting the program");
-                System.exit(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,7 +128,7 @@ public class DistributedMapper {
             Message m = mMapperImpl.mMessageList.getMessages().get(i);
             command = m.getKey() + DELIMITER +
                         m.getFlag() + DELIMITER +
-                        m.getType() + DELIMITER +
+                        Message.MessageType.TYPE_MAPPER_RESULT + DELIMITER +
                         m.getMessage();
             mCommands.add(command);
         }
@@ -155,8 +159,9 @@ public class DistributedMapper {
                 while (mCommands.size() > 0) {
                     try {
                         command = mCommands.remove(0);
+                        System.out.println("command " + command);
                         confirmIndex = -1;
-                        for (int i = 0; i < mNoOfMappers; i++) {
+                        for (int i = 0; i < mNoOfReducers; i++) {
                             CheckKeyPresentTask task = new CheckKeyPresentTask(i, command);
                             Thread t = new Thread(task,"new task");
                             t.start();
@@ -169,18 +174,19 @@ public class DistributedMapper {
                         if (confirmIndex != -1) {
                             outputStreams[confirmIndex].writeUTF(command);
                         } else {
-                            int random = (int)(Math.random() * mNoOfMappers);
+                            int random = (int)(Math.random() * mNoOfReducers);
                             outputStreams[random].writeUTF(command);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+
                     }
                 }
             }
 
-            for (int i = 0; i < mNoOfMappers; i++) {
+            for (int i = 0; i < mNoOfReducers; i++) {
                 try {
-                    outputStreams[i].writeUTF("END$" +
+                    outputStreams[i].writeUTF("END" +
+                            "$" +
                             Message.MessageFlag.END +
                             "$" +
                             Message.MessageType.TYPE_SYSTEM +
@@ -196,14 +202,10 @@ public class DistributedMapper {
 
     private void messageMainServer(String message) {
         try {
-            DataOutputStream out = new DataOutputStream(new Socket(InetAddress.getLocalHost(),
-                    Mapper.mMainPort,
-                    InetAddress.getLocalHost(),
-                    mPort)
-                    .getOutputStream());
+            DataOutputStream out = new DataOutputStream(new Socket(InetAddress.getLocalHost(), Mapper.mMainPort).getOutputStream());
             out.writeUTF(message + " map " + mPort);
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -220,7 +222,7 @@ public class DistributedMapper {
         }
         @Override
         public void run() {
-            String values[] = command.split(DELIMITER);
+            String values[] = splitThroughSeparator(command, DELIMITER);
             String x = values[0] + DELIMITER +// key
                     Message.MessageFlag.TYPE_PRESENT + DELIMITER +// flag
                     Message.MessageType.TYPE_MAPPER_CHECK + DELIMITER +// type
@@ -231,7 +233,7 @@ public class DistributedMapper {
                 while (result == null) {
                     result = inputStreams[reducerIndex].readUTF();
                 }
-                values = result.split(DELIMITER);
+                values = splitThroughSeparator(result, DELIMITER);
                 if (Integer.parseInt(values[1]) == Message.MessageFlag.TYPE_PRESENT) {
                     present = true;
                 }
@@ -274,5 +276,30 @@ public class DistributedMapper {
             }
         }
         return false;
+    }
+
+    /**
+     * used for splitting a String providing a separator
+     * @param key
+     * @param separator
+     * @return
+     */
+    public static String[] splitThroughSeparator(String key, String separator) {
+        String[] result;
+        ArrayList<String> resultList = new ArrayList<String>();
+        int x = key.indexOf(separator);
+        while (x > 0) {
+            resultList.add(key.subSequence(0,x).toString());
+            key = key.subSequence(x + 1,key.length()).toString();
+            x = key.indexOf(separator);
+        }
+        if (!key.equals("") && key != null) {
+            resultList.add(key);
+        }
+        result = new String[resultList.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = resultList.get(i);
+        }
+        return result;
     }
 }
