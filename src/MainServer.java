@@ -1,3 +1,5 @@
+import jdk.nashorn.internal.runtime.ECMAException;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileWriter;
@@ -20,6 +22,8 @@ public class MainServer {
 
     private boolean check = false;
 
+    private ArrayList<String> messages;
+
     public MainServer(int port) {
         mPort = port;
         init();
@@ -37,6 +41,7 @@ public class MainServer {
             }
             mappers = new HashMap<>();
             reducers = new HashMap<>();
+            messages = new ArrayList<>();
             mServer = new ServerSocket(mPort);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,6 +50,7 @@ public class MainServer {
 
     public void startServer() {
         new MainServerThread().start();
+        new MonitorThread().start();
     }
 
     private class MainServerThread implements Runnable {
@@ -98,70 +104,134 @@ public class MainServer {
             while (true) {
                 try {
                     String message = mInputStream.readUTF();
-                    System.out.println("recieved message :" + message);
-                    if (message != null) {
-                        String[] values = splitThroughSeparator(message," ");
-                        if (values[0].equals("s")) {
-                            int x = Integer.parseInt(values[2]);
-                            if (values[1].equals("map")) {
-                                if (mappers.containsKey(x)) {
-                                    mappers.put(x, mappers.get(x) + 1);
-                                } else {
-                                    mappers.put(x, mappers.get(x) + 1);
-                                }
-                            } else if (values[1].equals("reduce")) {
-                                if (reducers.containsKey(x)) {
-                                    reducers.put(x, reducers.get(x) + 1);
-                                } else {
-                                    reducers.put(x, reducers.get(x) + 1);
-                                }
-                            }
-                        } else if (values[0].equals("c")) {
-                            int x = Integer.parseInt(values[2]);
-                            if (values[1].equals("map")) {
-                                mappers.put(x,mappers.get(x) - 1);
-                            } else if (values[1].equals("reduce")) {
-                                reducers.put(x,reducers.get(x) - 1);
-                            }
-                        } else {
-                            if (!check) {
-                                writer.write(message);
-                                check = true;
-                            } else {
-                                writer.write("\n" + message);
-                            }
-                        }
-                    }
+                    System.out.println("received message :" + message);
+                    new HandleMessageTask(message).start();
                 } catch (Exception e) {
-
+                    System.out.println("Server " + mSocket.getPort() + " reset");
+                    break;
                 }
             }
         }
     }
 
-    private boolean allFinished() {
-        if (!mappers.isEmpty() && !reducers.isEmpty()) {
-            Set<Integer> keys = mappers.keySet();
-            Iterator it = keys.iterator();
-            int key;
-            while (it.hasNext()) {
-                key = (Integer) it.next();
-                if (mappers.get(key) != 0) {
-                    return false;
-                }
-            }
-            keys = reducers.keySet();
-            it = keys.iterator();
-            while (it.hasNext()) {
-                key = (Integer) it.next();
-                if (mappers.get(key) != 0) {
-                    return false;
-                }
-            }
-        } else {
-            return false;
+    private class HandleMessageTask implements Runnable {
+
+        String message;
+
+        Thread thread;
+        HandleMessageTask(String message) {
+            this.message = message;
+            thread = new Thread(this,"handle message");
         }
-        return true;
+
+        void start() {
+            thread.start();
+        }
+
+        @Override
+        public void run() {
+            try {
+                synchronized (mappers) {
+                    synchronized (reducers) {
+                        synchronized (writer) {
+                            if (message != null) {
+                                String[] values = splitThroughSeparator(message, " ");
+                                if (values[0].equals("s")) {
+                                    int x = Integer.parseInt(values[2]);
+                                    if (values[1].equals("map")) {
+                                        if (mappers.containsKey(x)) {
+                                            mappers.put(x, mappers.get(x) + 1);
+                                        } else {
+                                            mappers.put(x,1);
+                                        }
+                                    } else if (values[1].equals("reduce")) {
+                                        if (reducers.containsKey(x)) {
+                                            reducers.put(x, reducers.get(x) + 1);
+                                        } else {
+                                            reducers.put(x, 1);
+                                        }
+                                    }
+                                } else if (values[0].equals("c")) {
+                                    int x = Integer.parseInt(values[2]);
+                                    if (values[1].equals("map")) {
+                                        mappers.put(x, mappers.get(x) - 1);
+                                    } else if (values[1].equals("reduce")) {
+                                        reducers.put(x, reducers.get(x) - 1);
+                                    }
+                                } else {
+                                    if (!check) {
+                                        writer.write(message);
+                                        check = true;
+                                    } else {
+                                        writer.write("\n" + message);
+                                    }
+                                }
+                                System.out.println("Successfully write message : " + message);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class MonitorThread implements Runnable {
+
+        Thread thread;
+
+        MonitorThread() {
+            thread = new Thread(this,"monitor thread");
+        }
+
+        void start() {
+            thread.start();
+        }
+
+        @Override
+        public void run() {
+            while (!allFinished()) {
+
+            }
+            try {
+                mServer.close();
+                writer.close();
+                System.out.println("Program completed Successfully");
+                System.exit(0);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean allFinished() {
+        synchronized (mappers) {
+            synchronized (reducers) {
+                if (!mappers.isEmpty() && !reducers.isEmpty()) {
+                    Set<Integer> keys = mappers.keySet();
+                    Iterator it = keys.iterator();
+                    int key;
+                    while (it.hasNext()) {
+                        key = (Integer) it.next();
+                        if (mappers.get(key) != 0) {
+                            return false;
+                        }
+                    }
+                    keys = reducers.keySet();
+                    it = keys.iterator();
+                    while (it.hasNext()) {
+                        key = (Integer) it.next();
+                        if (reducers.get(key) != 0) {
+                            return false;
+                        }
+                    }
+                } else {
+                    return false;
+                }
+                return true;
+            }
+        }
     }
 
     public static String[] splitThroughSeparator(String key, String separator) {
