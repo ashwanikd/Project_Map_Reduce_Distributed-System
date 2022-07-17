@@ -42,6 +42,7 @@ public class MainServer {
             reducers = new HashMap<>();
             messages = new ArrayList<>();
             mServer = new ServerSocket(mPort);
+            mServer.setSoTimeout(5000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +64,7 @@ public class MainServer {
                     do {
                         Socket socket = mServer.accept();
                         new SocketThread(socket).start();
-                    } while (allFinished());
+                    } while (true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -187,11 +188,13 @@ public class MainServer {
 
         @Override
         public void run() {
-            while (!allFinished()) {
+            while (!allFinished() && !mServer.isClosed()) {
 
             }
             try {
-                mServer.close();
+                if (!mServer.isClosed()) {
+                    mServer.close();
+                }
                 writer.close();
                 System.out.println("Program completed Successfully");
                 System.exit(0);

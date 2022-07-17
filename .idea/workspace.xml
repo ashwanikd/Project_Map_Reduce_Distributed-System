@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="All done">
-      <change afterPath="$PROJECT_DIR$/input/input_3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/input/input_4.txt" afterDir="false" />
+    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="Bug fixing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainServer.java" afterDir="false" />
     </list>
@@ -205,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658040808618</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Bug fixing">
+      <created>1658041511006</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1658041511006</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -234,6 +239,7 @@
     <MESSAGE value="mapper and reducer functionality completed" />
     <MESSAGE value="Main functionality completed" />
     <MESSAGE value="All done" />
-    <option name="LAST_COMMIT_MESSAGE" value="All done" />
+    <MESSAGE value="Bug fixing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fixing" />
   </component>
 </project>
