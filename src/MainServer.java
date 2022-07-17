@@ -42,7 +42,7 @@ public class MainServer {
             reducers = new HashMap<>();
             messages = new ArrayList<>();
             mServer = new ServerSocket(mPort);
-            mServer.setSoTimeout(5000);
+            mServer.setSoTimeout(10000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,6 +67,8 @@ public class MainServer {
                     } while (true);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("Server timeout");
+                    System.exit(1);
                 }
             }
         }
