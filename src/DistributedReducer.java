@@ -210,7 +210,7 @@ public class DistributedReducer {
         Iterator it = mReducerImpl.result.iterator();
         while (it.hasNext()) {
             Message m = (Message) it.next();
-            mResult = mResult + m.getKey() + " " + m.getMessage() + "\n";
+            mResult = mResult + m.getKey() + "," + m.getMessage() + "\n";
         }
     }
 

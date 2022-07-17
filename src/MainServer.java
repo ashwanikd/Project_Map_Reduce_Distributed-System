@@ -159,12 +159,7 @@ public class MainServer {
                                         reducers.put(x, reducers.get(x) - 1);
                                     }
                                 } else {
-                                    if (!check) {
-                                        writer.write(message);
-                                        check = true;
-                                    } else {
-                                        writer.write("\n" + message);
-                                    }
+                                    writer.write(message);
                                 }
                                 System.out.println("Successfully write message : " + message);
                             }
