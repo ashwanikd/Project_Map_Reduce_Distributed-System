@@ -9,6 +9,10 @@ public class MapperImplementation implements MapperImplInterface {
 
     MessageList mMessageList = new MessageList();
 
+    /**
+     * map function invoked by the main Mapper Server
+     * @param message message contains the value as the input read from input file
+     */
     @Override
     public void map(Message message) {
         MessageList list = f(message.getMessage());
@@ -16,9 +20,10 @@ public class MapperImplementation implements MapperImplInterface {
     }
 
     /**
-     * function needs to be implemented
-     * @param arg
-     * @return
+     * function f needs to be implemented
+     * @param arg arg is the list Ls that has been read from the input file
+     * @return A MessageList Object containing a list of Message after processing the input
+     * Note: the output messages will go randomly to any alive reducer
      */
     @Override
     public MessageList f(String arg) {

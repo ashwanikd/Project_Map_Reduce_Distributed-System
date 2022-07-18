@@ -9,6 +9,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * functionality of Mapper Server
+ */
 public class DistributedMapper {
 
     private static final String DELIMITER = "$";

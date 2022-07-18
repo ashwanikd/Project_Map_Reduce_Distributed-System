@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * contains APIs for a list of messages
+ */
 public class MessageList {
     ArrayList<Message> messages;
 

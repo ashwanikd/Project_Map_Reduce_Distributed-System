@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="final commit">
+    <list default="true" id="01305a65-6870-4349-94ca-95ac19683236" name="Changes" comment="final commit new">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DistributedMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DistributedMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DistributedReducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DistributedReducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MapperImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapperImplementation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ReducerImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReducerImplementation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658041955704</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="final commit new">
+      <created>1658042624654</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1658042624654</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,6 +264,7 @@
     <MESSAGE value="All done" />
     <MESSAGE value="Bug fixing" />
     <MESSAGE value="final commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="final commit" />
+    <MESSAGE value="final commit new" />
+    <option name="LAST_COMMIT_MESSAGE" value="final commit new" />
   </component>
 </project>

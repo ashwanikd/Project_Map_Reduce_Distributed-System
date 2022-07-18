@@ -1,3 +1,6 @@
+/**
+ * invokes the Reducer server
+ */
 public class Reducer {
     public static final int mMapperStartingPort = 2001;
 

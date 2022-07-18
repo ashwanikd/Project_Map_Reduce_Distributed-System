@@ -7,6 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
+/**
+ * functionality of Main Server
+ */
 public class MainServer {
 
     private int mPort;

@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * functionality of Separator Server
+ */
 public class DistributedReducer {
 
     private static final String DELIMITER = "$";

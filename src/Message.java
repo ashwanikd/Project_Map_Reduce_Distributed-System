@@ -1,3 +1,7 @@
+/**
+ * Message class used for communication between
+ * Mapper Reducer and Main Server
+ */
 public class Message {
 
     public static class MessageType {

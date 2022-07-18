@@ -1,3 +1,6 @@
+/**
+ * invokes the Main Server
+ */
 public class Main {
 
     public static final int mMapperStartingPort = 2001;
